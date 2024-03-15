@@ -26,7 +26,8 @@ std::vector<std::string> Csv::get_all_rows() {
 
     while(csv_file.good()) {
         getline(csv_file, row, '\n');
-        rows.push_back(row);
+        if(row != "")
+            rows.push_back(row);
     }
     return rows;
 }
@@ -41,5 +42,21 @@ std::vector<std::string> Csv::split_row(std::string row) {
         row.erase(0, pos + this->delimiter.size());
     }
     return row_splited;
+}
+
+std::vector<std::string> Csv::get_row(int row_index) {
+    return this->matrix[row_index];
+}
+
+std::vector<std::string> Csv::get_column(int column_index) {
+    std::vector<std::string> column;
+    for(auto & row : this->matrix) {
+            column.push_back(row[column_index]);
+    }
+    return column;
+}
+
+std::vector<std::vector<std::string>> Csv::get_matrix() {
+    return this->matrix;
 }
 
