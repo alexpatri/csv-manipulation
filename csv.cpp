@@ -26,8 +26,9 @@ std::vector<std::string> Csv::get_all_rows() {
 
     while(csv_file.good()) {
         getline(csv_file, row, '\n');
-        if(row != "")
+        if(row != "") {
             rows.push_back(row);
+        }
     }
     return rows;
 }
@@ -58,5 +59,27 @@ std::vector<std::string> Csv::get_column(int column_index) {
 
 std::vector<std::vector<std::string>> Csv::get_matrix() {
     return this->matrix;
+}
+
+std::vector<std::vector<std::string>> Csv::get_interval_of_rows(int initial_index, int end_index) {
+    std::vector<std::vector<std::string>> rows;
+
+    for(int i = initial_index; i < end_index; i++) {
+        rows.push_back(this->matrix[i]);
+    }
+    return rows;
+}
+
+std::vector<std::vector<std::string>> Csv::get_interval_of_columns(int initial_index, int end_index) {
+    std::vector<std::vector<std::string>> columns;
+
+    for(auto row : this->matrix) {
+        std::vector<std::string> individual_row;
+        for(int i = initial_index; i < end_index; i++) {
+            individual_row.push_back(row[i]);
+        }
+        columns.push_back(individual_row);
+    }
+    return columns;
 }
 
